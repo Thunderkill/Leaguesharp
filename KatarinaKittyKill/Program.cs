@@ -10,7 +10,6 @@ using SharpDX;
 using LX_Orbwalker;
 using Color = System.Drawing.Color;
 using System.Net;
-using System.Collections.Specialized;
 
 namespace KatarinaKittyKill
 {
@@ -296,7 +295,7 @@ namespace KatarinaKittyKill
                     W.Cast();
                 }
 
-                if (useR && Target != null && R.IsReady() && countEnemiesNearPosition(Player.ServerPosition, R.Range) > 0)
+                if (useR && Target != null && R.IsReady() && Player.Distance(Target) <= R.Range)
                 {
                     if (!Q.IsReady() && !E.IsReady() && !W.IsReady())
                         R.Cast();
@@ -593,8 +592,11 @@ namespace KatarinaKittyKill
         {
             if (Player.IsChannelingImportantSpell())
             {
-                LXOrbwalker.Orbwalk(target.ServerPosition, null);
-                return;
+                if (countEnemiesNearPosition(Player.ServerPosition, 600) < 2)
+                {
+                    LXOrbwalker.Orbwalk(target.ServerPosition, null);
+                    return;
+                }
             }
 
         }
@@ -852,7 +854,7 @@ namespace KatarinaKittyKill
             if (useW && W.IsReady())
             {
                 var wPos = E.GetCircularFarmLocation(allMinionsW);
-                if (wPos.MinionsHit >= 3)
+                if (wPos.MinionsHit >= 2)
                     W.Cast();
             }
         }
