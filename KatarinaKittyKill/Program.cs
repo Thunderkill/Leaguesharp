@@ -9,6 +9,8 @@ using LeagueSharp.Common;
 using SharpDX;
 using LX_Orbwalker;
 using Color = System.Drawing.Color;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace KatarinaKittyKill
 {
@@ -158,6 +160,13 @@ namespace KatarinaKittyKill
             menu.SubMenu("Drawings")
                 .AddItem(dmgAfterComboItem);
             menu.AddToMainMenu();
+
+            using (var wb = new WebClient())
+            {
+                wb.DownloadString("http://thunderr.net/leaguesharp/update.php?script_name=KatarinaKittyKiller");
+                var response = wb.DownloadString("http://thunderr.net/leaguesharp/uses.php?script_name=KatarinaKittyKiller");
+                Game.PrintChat("This script has been used: " + response + " times");
+            }
 
             //Events
             Game.OnGameUpdate += Game_OnGameUpdate;
