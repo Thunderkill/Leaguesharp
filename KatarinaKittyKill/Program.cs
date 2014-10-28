@@ -164,7 +164,7 @@ namespace KatarinaKittyKill
             Drawing.OnDraw += Drawing_OnDraw;
             GameObject.OnCreate += GameObject_OnCreate;
             Game.OnGameSendPacket += Game_OnGameSendPacket;
-            Game.PrintChat("Thunderina loaded -- By Thunderkill");
+            Game.PrintChat(ChampionName + " Loaded! --- by xSalice");
         }
 
         public static bool inTowerRange(Vector2 pos)
